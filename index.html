@@ -16,6 +16,8 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .terminal {
             width: 90%;
@@ -25,6 +27,8 @@
             box-shadow: 0 0 20px #00ff00;
             background: rgba(0, 20, 0, 0.95);
             border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
         }
         h1 {
             font-size: 18px;
@@ -32,45 +36,78 @@
             color: #ff3333;
             border-bottom: 1px solid #ff3333;
             padding-bottom: 8px;
+            margin-top: 0;
         }
-        p { font-size: 13px; line-height: 1.5; text-align: left; }
+        p { font-size: 13px; line-height: 1.6; text-align: left; }
+        .tap-box {
+            margin-top: 15px;
+            padding: 12px;
+            background: #ff3333;
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 4px;
+            animation: pulse 1s infinite alternate;
+        }
+        @keyframes pulse {
+            from { transform: scale(1); box-shadow: 0 0 5px #ff3333; }
+            to { transform: scale(1.03); box-shadow: 0 0 15px #ff3333; }
+        }
         .blink { animation: blinker 0.8s linear infinite; color: #ffff00; }
         @keyframes blinker { 50% { opacity: 0; } }
     </style>
 </head>
-<body>
+<body onclick="startTakeover()">
 
     <div class="terminal">
-        <h1>[!] CRITICAL SYSTEM OVERRIDE</h1>
-        <p id="line1">[+] NFC HARDWARE TAP DETECTED...</p>
-        <p id="line2" style="display:none;">[+] EXPLOITING BACKDOOR...</p>
-        <p id="line3" style="display:none;">[+] ACCESS GRANTED. DECRYPTING...</p>
-        <p id="line4" class="blink" style="display:none;">>>> LAUNCHING PAYLOAD...</p>
+        <h1>[!] CRITICAL NFC OVERRIDE</h1>
+        <p>[+] HARDWARE KEY DETECTED.</p>
+
+        <div class="tap-box" id="tapPrompt">
+            >>> TAP SCREEN TO INITIALIZE <<<
+        </div>
+
+        <div id="output" style="display:none; margin-top:10px;">
+            <p id="line1">[+] EXPLOITING SYSTEM BACKDOOR...</p>
+            <p id="line2" style="display:none;">[+] DECRYPTING PAYLOAD...</p>
+            <p id="line3" class="blink" style="display:none;">>>> LAUNCHING OVERRIDE...</p>
+        </div>
     </div>
 
     <script>
-        // 1. Trigger Physical Phone Vibration
-        if ("vibrate" in navigator) {
-            navigator.vibrate([100, 50, 100, 50, 300, 100, 500]);
+        let started = false;
+
+        function startTakeover() {
+            if (started) return;
+            started = true;
+
+            // 1. Hide tap prompt and show terminal output
+            document.getElementById('tapPrompt').style.display = 'none';
+            document.getElementById('output').style.display = 'block';
+
+            // 2. Trigger Physical Phone Vibration
+            if ("vibrate" in navigator) {
+                navigator.vibrate([100, 50, 100, 50, 300, 100, 500]);
+            }
+
+            // 3. Make the Phone Speak Out Loud (Unlocked by touch event!)
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const voiceMsg = new SpeechSynthesisUtterance("Warning. System breach detected. Initiating override.");
+                voiceMsg.rate = 0.9;
+                voiceMsg.pitch = 0.7;
+                window.speechSynthesis.speak(voiceMsg);
+            }
+
+            // 4. Sequential Terminal Typing
+            setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 1000);
+            setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 2000);
+
+            // 5. Auto-Launch Rickroll
+            setTimeout(() => {
+                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            }, 3800);
         }
-
-        // 2. Make the Phone Speak Out Loud
-        if ('speechSynthesis' in window) {
-            const voiceMsg = new SpeechSynthesisUtterance("Warning. System breach detected. Initiating override.");
-            voiceMsg.rate = 0.9;
-            voiceMsg.pitch = 0.7;
-            window.speechSynthesis.speak(voiceMsg);
-        }
-
-        // 3. Sequential Terminal Typing
-        setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 800);
-        setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 1600);
-        setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 2400);
-
-        // 4. Auto-Launch Rickroll
-        setTimeout(() => {
-            window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-        }, 3600);
     </script>
 
 </body>
