@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRITICAL SYSTEM OVERRIDE</title>
+    <title>WELCOME TO PORTAL</title>
     <style>
         body {
             background-color: #000;
@@ -23,7 +23,7 @@
             width: 90%;
             max-width: 400px;
             border: 2px solid #00ff00;
-            padding: 20px;
+            padding: 25px;
             box-shadow: 0 0 20px #00ff00;
             background: rgba(0, 20, 0, 0.95);
             border-radius: 8px;
@@ -31,46 +31,46 @@
             cursor: pointer;
         }
         h1 {
-            font-size: 18px;
+            font-size: 20px;
             text-shadow: 0 0 8px #00ff00;
-            color: #ff3333;
-            border-bottom: 1px solid #ff3333;
+            color: #00ff00;
+            border-bottom: 1px solid #00ff00;
             padding-bottom: 8px;
             margin-top: 0;
         }
-        p { font-size: 13px; line-height: 1.6; text-align: left; }
+        p { font-size: 14px; line-height: 1.6; text-align: left; }
         .tap-box {
-            margin-top: 15px;
-            padding: 12px;
-            background: #ff3333;
+            margin-top: 20px;
+            padding: 15px;
+            background: #00ff00;
             color: #000;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 15px;
             border-radius: 4px;
             animation: pulse 1s infinite alternate;
         }
         @keyframes pulse {
-            from { transform: scale(1); box-shadow: 0 0 5px #ff3333; }
-            to { transform: scale(1.03); box-shadow: 0 0 15px #ff3333; }
+            from { transform: scale(1); box-shadow: 0 0 5px #00ff00; }
+            to { transform: scale(1.03); box-shadow: 0 0 18px #00ff00; }
         }
-        .blink { animation: blinker 0.8s linear infinite; color: #ffff00; }
+        .blink { animation: blinker 0.8s linear infinite; color: #ff3333; font-weight: bold; }
         @keyframes blinker { 50% { opacity: 0; } }
     </style>
 </head>
 <body onclick="startTakeover()">
 
     <div class="terminal">
-        <h1>[!] CRITICAL NFC OVERRIDE</h1>
-        <p>[+] HARDWARE KEY DETECTED.</p>
+        <h1>WELCOME TO PORTAL</h1>
+        <p>[+] Connection established.</p>
 
         <div class="tap-box" id="tapPrompt">
-            >>> TAP SCREEN TO INITIALIZE <<<
+            >>> CLICK TO ENTER WEBSITE <<<
         </div>
 
-        <div id="output" style="display:none; margin-top:10px;">
-            <p id="line1">[+] EXPLOITING SYSTEM BACKDOOR...</p>
-            <p id="line2" style="display:none;">[+] DECRYPTING PAYLOAD...</p>
-            <p id="line3" class="blink" style="display:none;">>>> LAUNCHING OVERRIDE...</p>
+        <div id="output" style="display:none; margin-top:15px;">
+            <p id="line1">[+] Loading secure content...</p>
+            <p id="line2" style="display:none;">[+] Initiating override...</p>
+            <p id="line3" class="blink" style="display:none;">>>> YOU'RE AN IDIOPT! <<<</p>
         </div>
     </div>
 
@@ -81,7 +81,7 @@
             if (started) return;
             started = true;
 
-            // 1. Hide tap prompt and show terminal output
+            // 1. Hide tap prompt and show prank output
             document.getElementById('tapPrompt').style.display = 'none';
             document.getElementById('output').style.display = 'block';
 
@@ -90,23 +90,23 @@
                 navigator.vibrate([100, 50, 100, 50, 300, 100, 500]);
             }
 
-            // 3. Make the Phone Speak Out Loud (Unlocked by touch event!)
+            // 3. Robotic Voice Speech
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const voiceMsg = new SpeechSynthesisUtterance("Warning. System breach detected. Initiating override.");
+                const voiceMsg = new SpeechSynthesisUtterance("Warning. You're an idiot. Initiating override.");
                 voiceMsg.rate = 0.9;
                 voiceMsg.pitch = 0.7;
                 window.speechSynthesis.speak(voiceMsg);
             }
 
-            // 4. Sequential Terminal Typing
-            setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 1000);
-            setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 2000);
+            // 4. Sequential Terminal Output
+            setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 800);
+            setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 1600);
 
             // 5. Auto-Launch Rickroll
             setTimeout(() => {
                 window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-            }, 3800);
+            }, 3200);
         }
     </script>
 
