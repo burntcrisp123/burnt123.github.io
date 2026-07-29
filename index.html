@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRITICAL SYSTEM OVERRIDE</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .terminal {
+            width: 90%;
+            max-width: 400px;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            box-shadow: 0 0 20px #00ff00;
+            background: rgba(0, 20, 0, 0.95);
+            border-radius: 8px;
+        }
+        h1 {
+            font-size: 18px;
+            text-shadow: 0 0 8px #00ff00;
+            color: #ff3333;
+            border-bottom: 1px solid #ff3333;
+            padding-bottom: 8px;
+        }
+        p { font-size: 13px; line-height: 1.5; text-align: left; }
+        .blink { animation: blinker 0.8s linear infinite; color: #ffff00; }
+        @keyframes blinker { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="terminal">
+        <h1>[!] CRITICAL SYSTEM OVERRIDE</h1>
+        <p id="line1">[+] NFC HARDWARE TAP DETECTED...</p>
+        <p id="line2" style="display:none;">[+] EXPLOITING BACKDOOR...</p>
+        <p id="line3" style="display:none;">[+] ACCESS GRANTED. DECRYPTING...</p>
+        <p id="line4" class="blink" style="display:none;">>>> LAUNCHING PAYLOAD...</p>
+    </div>
+
+    <script>
+        // 1. Trigger Physical Phone Vibration
+        if ("vibrate" in navigator) {
+            navigator.vibrate([100, 50, 100, 50, 300, 100, 500]);
+        }
+
+        // 2. Make the Phone Speak Out Loud
+        if ('speechSynthesis' in window) {
+            const voiceMsg = new SpeechSynthesisUtterance("Warning. System breach detected. Initiating override.");
+            voiceMsg.rate = 0.9;
+            voiceMsg.pitch = 0.7;
+            window.speechSynthesis.speak(voiceMsg);
+        }
+
+        // 3. Sequential Terminal Typing
+        setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 800);
+        setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 1600);
+        setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 2400);
+
+        // 4. Auto-Launch Rickroll
+        setTimeout(() => {
+            window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        }, 3600);
+    </script>
+
+</body>
+</html>
